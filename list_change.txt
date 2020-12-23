@@ -1,0 +1,30 @@
+`sales_table`.`pur_price`
+`purchase`.`gr_number`
+ `purchase_order`.`gr_number`
+`sr_salery`.`status`
+
+view____Name pur_gr___ SELECT
+  `purchase`.`gr_number`    AS `gr_number`,
+  `purchase`.`Catagory` AS `Catagory`,
+  `purchase`.`product_name` AS `product_name`,
+  `purchase`.`pu_price`     AS `pu_price`,
+  `purchase`.`pu_quantity`  AS `pu_quantity`,
+  `purchase`.`pu_date`      AS `pu_date`
+FROM `purchase`
+
+View_Name sal_gr___ SELECT `gr_number`,`Catagory`,`product_name`,`s_quantity`,`s_price`,`pur_price`,`s_date` FROM `sales_table`
+
+View_Name sals_quan_sum____ SELECT `sal_gr`.`gr_number`,`sal_gr`.`Catagory`,`sal_gr`.`product_name`,SUM(`sal_gr`.`s_quantity`),SUM(`sal_gr`.`s_price`) FROM `sal_gr` GROUP BY `sal_gr`.`gr_number`
+
+
+View__ NAem gr_wise_stock  SELECT
+  `pur_gr`.`gr_number`,`pur_gr`.`Catagory`,`pur_gr`.`product_name`,`pur_gr`.`pu_quantity`,
+ `sals_quan_sum`.`s_quantity`
+FROM (`pur_gr`
+   LEFT JOIN `sals_quan_sum`
+     ON ((`pur_gr`.`gr_number` = `sals_quan_sum`.`gr_number`)))
+
+
+
+
+
